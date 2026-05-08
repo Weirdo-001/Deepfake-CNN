@@ -437,13 +437,13 @@ def load_model():
     try:
         import tf_keras
         model = tf_keras.models.load_model(
-            "deepfake_detector_mobilenetv2.keras",
+            "deepfake_detector_mobilenetv2.h5",
             compile=False
         )
         return model
     except Exception as e:
         st.error(f"❌ Model Loading Error: {str(e)}")
-        st.info("Make sure 'deepfake_detector_mobilenetv2.keras' is in the same directory")
+        st.info("Make sure 'deepfake_detector_mobilenetv2.h5' is in the same directory")
         return None
 
 model = load_model()
