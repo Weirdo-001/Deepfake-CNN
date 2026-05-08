@@ -1,5 +1,5 @@
 streamlit
-tensorflow
-opencv-python-headless
+tensorflow==2.15.1
 numpy
-python-3.11
+opencv-python-headless
+plotly
