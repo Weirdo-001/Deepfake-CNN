@@ -436,7 +436,7 @@ def load_model():
     try:
         import keras
         model = keras.models.load_model(
-            "deepfake_detector_mobilenetv2.h5",
+            "deepfake_detector_mobilenetv2 .h5",
             compile=False
         )
         return model
