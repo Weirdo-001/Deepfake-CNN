@@ -412,13 +412,18 @@ st.markdown("---")
 @st.cache_resource
 def load_model():
     try:
-        model = tf.keras.models.load_model("deepfake_detector_mobilenetv2 .h5")
+        import keras
+        model = keras.models.load_model(
+            "deepfake_detector_mobilenetv2 .h5",
+            compile=False
+        )
         return model
     except Exception as e:
-        st.error("⚠️ Model not found. Ensure 'deepfake_detector_mobilenetv2 .h5' is in the project directory.")
+        st.error(f"❌ Model Loading Error: {str(e)}")
         return None
 
 model = load_model()
+
 
 # ============================================================================
 # VIDEO ANALYSIS
