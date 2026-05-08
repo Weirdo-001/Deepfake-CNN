@@ -435,12 +435,26 @@ st.markdown("---")
 def load_model():
     """Load the pre-trained deepfake detection model"""
     try:
-        model = tf.keras.models.load_model("deepfake_detector_mobilenetv2.keras")
+        import keras
+        # Fix for InputLayer compatibility between TF versions
+        custom_objects = {
+            'InputLayer': keras.layers.InputLayer
+        }
+        model = tf.keras.models.load_model(
+            "deepfake_detector_mobilenetv2.keras",
+            compile=False,
+            custom_objects=custom_objects
+        )
         return model
     except Exception as e:
-        st.error(f"❌ Model Loading Error: {str(e)}")
-        st.info("Make sure 'deepfake_detector_mobilenetv2.keras' is in the same directory")
-        return None
+        # Fallback: try with legacy format
+        try:
+            model = tf.saved_model.load("deepfake_detector_mobilenetv2.keras")
+            return model
+        except Exception as e2:
+            st.error(f"❌ Model Loading Error: {str(e)}")
+            st.info("Make sure 'deepfake_detector_mobilenetv2.keras' is in the same directory")
+            return None
 
 model = load_model()
 
